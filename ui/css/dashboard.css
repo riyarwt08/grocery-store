@@ -1,0 +1,50 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body styling */
+body {
+    background-color: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    text-align: center;
+}
+
+/* Title */
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 20px 40px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: inline-block;
+    min-width: 200px;
+}
+
+/* Card text */
+.card p {
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* Numbers */
+.card h2 {
+    color: #2c7be5;
+    font-size: 28px;
+}

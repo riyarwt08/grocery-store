@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #2f3640;
+}
+
+input {
+    padding: 8px;
+    margin: 10px 0;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #273c75;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f2f6;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button[onclick="addRow()"] {
+    background-color: #44bd32;
+    color: white;
+}
+
+button[onclick="placeOrder()"] {
+    background-color: #e84118;
+    color: white;
+}
+
+button[onclick^="removeRow"] {
+    background-color: #c23616;
+    color: white;
+}
+
+#grandTotal {
+    font-size: 22px;
+    font-weight: bold;
+    color: #192a56;
+}
+
+h3 {
+    text-align: right;
+    margin-top: 20px;
+}
