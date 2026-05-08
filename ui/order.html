@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order</title>
+    <link rel="stylesheet" href="css/order.css">
+</head>
+<body>
+
+<h1>Create Order</h1>
+
+<input type="text" id="customerName" placeholder="Customer Name">
+
+<br><br>
+
+<table border="1" id="orderTable">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<br>
+<button onclick="addRow()">Add Item</button>
+
+<h3>Total: <span id="grandTotal">0</span></h3>
+
+<button onclick="placeOrder()">Place Order</button>
+
+<script src="./js/common.js"></script>
+<script src="./js/order.js"></script>
+
+</body>
+</html>
