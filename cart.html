@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket - Freshly Grocery</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f5f5f5;
+            padding:40px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:40px;
+            color:#2e7d32;
+            font-size:45px;
+        }
+
+        .cart-container{
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .cart-item{
+            background:white;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:20px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+            gap:20px;
+        }
+
+        .cart-left{
+            display:flex;
+            align-items:center;
+            gap:20px;
+        }
+
+        .cart-left img{
+            width:120px;
+            height:120px;
+            object-fit:contain;
+            background:#fafafa;
+            padding:10px;
+            border-radius:15px;
+        }
+
+        .cart-info h2{
+            margin-bottom:10px;
+        }
+
+        .price{
+            color:#2e7d32;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .quantity-box{
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+
+        .quantity-btn{
+            width:35px;
+            height:35px;
+            border:none;
+            background:#2e7d32;
+            color:white;
+            font-size:20px;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        .remove-btn{
+            background:red;
+            color:white;
+            border:none;
+            padding:10px 18px;
+            border-radius:10px;
+            cursor:pointer;
+        }
+
+        .summary{
+            background:white;
+            padding:30px;
+            border-radius:20px;
+            margin-top:30px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .summary h2{
+            margin-bottom:20px;
+        }
+
+        .total{
+            font-size:30px;
+            color:#2e7d32;
+            font-weight:bold;
+            margin-bottom:25px;
+        }
+
+        .checkout-btn{
+            display:inline-block;
+            background:#2e7d32;
+            color:white;
+            padding:15px 25px;
+            border-radius:12px;
+            text-decoration:none;
+        }
+
+        .empty{
+            text-align:center;
+            margin-top:100px;
+        }
+
+        .empty a{
+            display:inline-block;
+            margin-top:20px;
+            background:#2e7d32;
+            color:white;
+            padding:15px 25px;
+            border-radius:10px;
+            text-decoration:none;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <h1>Your Basket</h1>
+
+    <div class="cart-container" id="cartContainer"></div>
+
+    <script src="js/cart.js"></script>
+
+    <script>
+
+        const cartContainer = document.getElementById(
+            'cartContainer'
+        );
+
+        if(cart.length === 0){
+
+            cartContainer.innerHTML = `
+
+                <div class="empty">
+
+                    <h2>Your basket is empty</h2>
+
+                    <a href="products.html">
+                        Shop Products
+                    </a>
+
+                </div>
+
+            `;
+
+        } else {
+
+            let total = 0;
+
+            cart.forEach(item => {
+
+                const subtotal =
+                    item.price * item.quantity;
+
+                total += subtotal;
+
+                cartContainer.innerHTML += `
+
+                    <div class="cart-item">
+
+                        <div class="cart-left">
+
+                            <img src="images/${item.product_image}">
+
+                            <div class="cart-info">
+
+                                <h2>${item.product_name}</h2>
+
+                                <div class="price">
+                                    ₹${item.price}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="quantity-box">
+
+                            <button
+                                class="quantity-btn"
+                                onclick="updateQuantity(
+                                    ${item.product_id},
+                                    -1
+                                )"
+                            >
+                                -
+                            </button>
+
+                            <h2>${item.quantity}</h2>
+
+                            <button
+                                class="quantity-btn"
+                                onclick="updateQuantity(
+                                    ${item.product_id},
+                                    1
+                                )"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                        <h2>
+                            ₹${subtotal}
+                        </h2>
+
+                        <button
+                            class="remove-btn"
+                            onclick="removeFromCart(
+                                ${item.product_id}
+                            )"
+                        >
+                            Remove
+                        </button>
+
+                    </div>
+
+                `;
+
+            });
+
+            cartContainer.innerHTML += `
+
+                <div class="summary">
+
+                    <h2>Order Summary</h2>
+
+                    <div class="total">
+                        Total: ₹${total}
+                    </div>
+
+                    <a
+                        href="order.html"
+                        class="checkout-btn"
+                    >
+                        Proceed to Checkout
+                    </a>
+
+                </div>
+
+            `;
+
+        }
+
+    </script>
+
+</body>
+</html>

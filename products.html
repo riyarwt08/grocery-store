@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Freshly Grocery</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial,sans-serif;
+        }
+
+        body{
+            background:#f5f5f5;
+            padding:40px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:40px;
+            color:#2e7d32;
+            font-size:45px;
+        }
+
+        .products-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:25px;
+        }
+
+        .product-card{
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+            transition:0.3s;
+        }
+
+        .product-card:hover{
+            transform:translateY(-5px);
+        }
+
+        .product-card img{
+            width:100%;
+            height:240px;
+            object-fit:contain;
+            background:#fafafa;
+            padding:15px;
+        }
+
+        .product-info{
+            padding:20px;
+        }
+
+        .product-info h2{
+            margin-bottom:10px;
+        }
+
+        .price{
+            color:#2e7d32;
+            font-size:22px;
+            font-weight:bold;
+            margin-bottom:15px;
+        }
+
+        .stock{
+            color:#777;
+            margin-bottom:15px;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:12px 20px;
+            background:#2e7d32;
+            color:white;
+            text-decoration:none;
+            border-radius:10px;
+            border:none;
+            cursor:pointer;
+        }
+
+        .top-buttons{
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:30px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="top-buttons">
+
+        <a href="index.html" class="btn">
+            Home
+        </a>
+
+        <a href="cart.html" class="btn">
+            Basket
+        </a>
+
+    </div>
+
+    <h1>Freshly Grocery Products</h1>
+
+    <div class="products-container" id="productsContainer"></div>
+
+    <script src="js/cart.js"></script>
+
+    <script>
+
+        async function loadProducts() {
+
+            const params = new URLSearchParams(window.location.search);
+
+            const categoryId = params.get('category');
+
+            const response = await fetch(
+                'http://127.0.0.1:5000/products'
+            );
+
+            const products = await response.json();
+
+            const container = document.getElementById(
+                'productsContainer'
+            );
+
+            let filteredProducts = products;
+
+            if(categoryId){
+
+                filteredProducts = products.filter(
+                    product => product.category_id == categoryId
+                );
+
+            }
+
+            filteredProducts.forEach(product => {
+
+                container.innerHTML += `
+
+                    <div class="product-card">
+
+                        <img src="images/${product.product_image}">
+
+                        <div class="product-info">
+
+                            <h2>${product.product_name}</h2>
+
+                            <div class="price">
+                                ₹${product.price}
+                            </div>
+
+                            <div class="stock">
+                                Stock: ${product.stock_quantity}
+                            </div>
+
+                            <button
+                                class="btn"
+                                onclick='addToCart(${JSON.stringify(product)})'
+                            >
+                                Add to Basket
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+        loadProducts();
+
+    </script>
+
+</body>
+</html>
